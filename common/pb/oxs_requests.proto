@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option go_package = "common/pb";
+
+message Leaderboard {
+
+    repeated Leaderboard.Player players = 1;
+
+    message Player {
+        int64 id = 1;
+        uint32 rating = 2;
+        uint32 matchCount = 3;
+        string favoriteHero = 4;
+    };
+}
+
+message PlayerStats {
+    int64 id = 1;
+    uint32 matchCount = 2;
+    string favoriteHero = 3;
+    map<string, int32> places = 4;
+    map<string, PlayerStats.HeroStat> heroes = 5;
+    repeated PlayerStats.Match matches = 6;
+
+    message HeroStat {
+        int32 MatchCount = 1;
+        string kills = 2;
+        string deaths = 3;
+        string rating = 4;
+        map<string, int32> places = 5;
+    }
+
+    message Match {
+        string heroName = 1;
+        string mainTalent = 2;
+        map<string, string> items = 3;
+        uint32 kills = 4;
+        uint32 deaths = 5;
+        uint32 place = 6;
+        sint32 ratingChange = 7;
+        uint64 endTime = 8;
+        uint64 date = 9;
+    }
+}
